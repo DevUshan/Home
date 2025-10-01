@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Agreement | Aurix Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #06b6d4;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --text: #334155;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.1);
+            --blur: blur(10px);
+            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #f0f4ff 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            font-size: 1rem;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding-top: 160px;
+            padding-bottom: 80px;
+            position: relative;
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            background: rgba(37, 99, 235, 0.1);
+            backdrop-filter: var(--blur);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--darker);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-title span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-desc {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            color: var(--text);
+            max-width: 600px;
+        }
+        
+        /* Agreement Content */
+        .agreement-content {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .agreement-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .agreement-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--darker);
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+        
+        .agreement-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .agreement-header h1 {
+            font-size: 2.4rem;
+            color: var(--darker);
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .agreement-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+        
+        .agreement-section {
+            margin-bottom: 45px;
+        }
+        
+        .agreement-section h3 {
+            font-size: 1.6rem;
+            color: var(--darker);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .agreement-section p {
+            margin-bottom: 18px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .agreement-section ul {
+            margin-left: 24px;
+            margin-bottom: 18px;
+        }
+        
+        .agreement-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .service-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .pricing-table th, .pricing-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .pricing-table th {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .pricing-table .total-row {
+            font-weight: 700;
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        .pricing-table .free {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            margin-top: 45px;
+            padding-top: 35px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-box {
+            padding: 25px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.02);
+        }
+        
+        .signature-box h4 {
+            margin-bottom: 18px;
+            color: var(--darker);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .signature-line {
+            margin-top: 50px;
+            padding-top: 15px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        .download-section {
+            background: rgba(37, 99, 235, 0.05);
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 45px;
+            text-align: center;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .download-section h3 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .download-section p {
+            margin-bottom: 25px;
+            color: var(--text);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 30px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.2);
+        }
+        
+        /* Form Elements */
+        .form-input {
+            border: none;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 8px 5px;
+            width: 200px;
+            text-align: center;
+            background: transparent;
+            transition: border-color 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .price-input {
+            width: 100px;
+            text-align: right;
+        }
+        
+        /* Development Process Steps */
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(37, 99, 235, 0.03);
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover {
+            background: rgba(37, 99, 235, 0.08);
+        }
+        
+        .step-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .step-label {
+            flex: 1;
+            cursor: pointer;
+        }
+        
+        .step-price {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .agreement-container {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .agreement-container {
+                padding: 30px 20px;
+            }
+            
+            .agreement-header h1 {
+                font-size: 2rem;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .signature-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .pricing-table {
+                font-size: 0.9rem;
+            }
+            
+            .pricing-table th, .pricing-table td {
+                padding: 12px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .agreement-header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .agreement-section h3 {
+                font-size: 1.4rem;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .download-btn {
+                padding: 12px 20px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast i {
+            font-size: 1.2rem;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        /* Editable fields */
+        .editable {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .editable input {
+            border: 1px dashed #cbd5e1;
+            border-radius: 4px;
+            padding: 5px 8px;
+            background: rgba(37, 99, 235, 0.03);
+            width: auto;
+            min-width: 100px;
+        }
+        
+        .editable .edit-icon {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .editable:hover .edit-icon {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <div class="logo-img">A</div>
+                    Aurix Solutions
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Work</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Clients</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-file-contract"></i> Service Agreement
+                </div>
+                <h1 class="hero-title">Web Development & <span>Lifetime Maintenance</span></h1>
+                <p class="hero-desc">Professional agreement outlining our comprehensive website development and ongoing support services.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agreement Content -->
+    <section class="agreement-content">
+        <div class="container">
+            <div class="agreement-container" id="agreementContent">
+                <div class="agreement-header">
+                    <h1>Modern Web Development & Lifetime Maintenance Agreement</h1>
+                    <p class="subtitle">Company: Aurix Solutions | Document Date: 
+                        <span class="editable">
+                            <input type="date" id="documentDate" class="form-input">
+                            <i class="fas fa-edit edit-icon"></i>
+                        </span>
+                    </p>
+                    <p>Prepared For: <input type="text" id="clientName" class="form-input" placeholder="[Client Name]"></p>
+                    <p>Project: <input type="text" id="projectName" class="form-input" placeholder="[Project Name]"></p>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-rocket"></i> Introduction & Welcome</h3>
+                    <p>Dear <span id="clientNameDisplay">[Client Name]</span>,</p>
+                    <p>Thank you for choosing Aurix Solutions for your web development needs. This agreement outlines our comprehensive website development and lifetime maintenance services, designed to establish and maintain your powerful online presence with cutting-edge technology and ongoing support.</p>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-star"></i> Our Premium Services</h3>
+                    <div class="service-grid">
+                        <div class="service-card">
+                            <h4>Domain Registration & Security</h4>
+                            <ul>
+                                <li>Premium .lk/.com domain registration</li>
+                                <li>Free SSL Certificate integration</li>
+                                <li>DNS management dashboard</li>
+                                <li>Auto-renewal protection</li>
+                                <li>Domain privacy features</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h4>LightSpeed Web Hosting</h4>
+                            <ul>
+                                <li>SSD Cloud Hosting for maximum performance</li>
+                                <li>99.9% Uptime Guarantee</li>
+                                <li>Global CDN Integration</li>
+                                <li>Daily automated backups</li>
+                                <li>Advanced security monitoring</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h4>Custom Website Development</h4>
+                            <ul>
+                                <li>Responsive Design - Perfect on all devices</li>
+                                <li>Unlimited Scalability - Articles, products & categories</li>
+                                <li>Professional Email - 20+ business email accounts</li>
+                                <li>E-commerce Ready - Full payment gateway integration</li>
+                                <li>SEO Optimized - On-site search engine optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-bolt"></i> Our Development Process</h3>
+                    <p>Select the development process steps you want to include:</p>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step1" checked>
+                        <label for="step1" class="step-label">Phase 1: Discovery & Strategy</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="5,000" data-price="5000">
+                        </span>
+                    </div>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step2" checked>
+                        <label for="step2" class="step-label">Phase 2: Design & UX</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="8,000" data-price="8000">
+                        </span>
+                    </div>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step3" checked>
+                        <label for="step3" class="step-label">Phase 3: Development</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="15,000" data-price="15000">
+                        </span>
+                    </div>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step4" checked>
+                        <label for="step4" class="step-label">Phase 4: Launch & Beyond</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="6,500" data-price="6500">
+                        </span>
+                    </div>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step5">
+                        <label for="step5" class="step-label">Advanced E-commerce Setup</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="12,000" data-price="12000">
+                        </span>
+                    </div>
+                    
+                    <div class="process-step">
+                        <input type="checkbox" class="step-checkbox" id="step6">
+                        <label for="step6" class="step-label">Custom API Integration</label>
+                        <span class="step-price">
+                            <input type="text" class="price-input form-input" value="7,500" data-price="7500">
+                        </span>
+                    </div>
+                    
+                    <div style="margin-top: 20px; text-align: right; font-weight: 600;">
+                        Development Process Total: <span id="processTotal">₪34,500</span>
+                    </div>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-money-bill-wave"></i> Investment Overview</h3>
+                    <h4>First Year - Launch Package</h4>
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Unit Price (LKR)</th>
+                                <th>Quantity</th>
+                                <th>Total (LKR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Domain with SSL</td>
+                                <td><input type="text" class="price-input form-input" value="4,500" data-price="4500"></td>
+                                <td>1</td>
+                                <td class="free">FREE</td>
+                            </tr>
+                            <tr>
+                                <td>LightSpeed Hosting</td>
+                                <td><input type="text" class="price-input form-input" value="10,500" data-price="10500"></td>
+                                <td>1</td>
+                                <td id="hostingTotal">10,500</td>
+                            </tr>
+                            <tr>
+                                <td>Website Development</td>
+                                <td><input type="text" class="price-input form-input" id="devPrice" value="34,500" data-price="34500"></td>
+                                <td>1</td>
+                                <td id="devTotal">34,500</td>
+                            </tr>
+                            <tr>
+                                <td>Yearly Maintenance</td>
+                                <td><input type="text" class="price-input form-input" value="12,000" data-price="12000"></td>
+                                <td>1</td>
+                                <td class="free">FREE</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td colspan="3">Total First Year</td>
+                                <td id="firstYearTotal">₪44,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4 style="margin-top: 30px;">Second Year Onwards - Maintenance</h4>
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Unit Price (LKR)</th>
+                                <th>Quantity</th>
+                                <th>Total (LKR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Domain Renewal + SSL</td>
+                                <td><input type="text" class="price-input form-input" value="4,500" data-price="4500"></td>
+                                <td>1</td>
+                                <td id="domainRenewal">4,500</td>
+                            </tr>
+                            <tr>
+                                <td>Hosting Renewal</td>
+                                <td><input type="text" class="price-input form-input" value="10,500" data-price="10500"></td>
+                                <td>1</td>
+                                <td id="hostingRenewal">10,500</td>
+                            </tr>
+                            <tr>
+                                <td>Annual Maintenance</td>
+                                <td><input type="text" class="price-input form-input" value="12,000" data-price="12000"></td>
+                                <td>1</td>
+                                <td id="maintenanceRenewal">12,000</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td colspan="3">Annual Renewal</td>
+                                <td id="annualRenewal">₪27,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Payment Schedule</h3>
+                    <h4>Development Fee</h4>
+                    <ul>
+                        <li>Advance Payment: <span class="editable"><input type="text" class="price-input form-input" id="advancePayment" value="15,000"> <i class="fas fa-edit edit-icon"></i></span> (To start project)</li>
+                        <li>Mid-Project Payment: <span class="editable"><input type="text" class="price-input form-input" id="midPayment" value="20,000"> <i class="fas fa-edit edit-icon"></i></span> (At 80% completion)</li>
+                        <li>Final Payment: <span class="editable"><input type="text" class="price-input form-input" id="finalPayment" value="14,500"> <i class="fas fa-edit edit-icon"></i></span> (Before going live)</li>
+                    </ul>
+                    
+                    <h4>Recurring Fees</h4>
+                    <ul>
+                        <li>Hosting & maintenance fees are billed annually</li>
+                        <li>Invoices sent 30 days before renewal date</li>
+                        <li>Auto-renewal unless cancelled with 30-day written notice</li>
+                    </ul>
+                </div>
+                
+                <div class="agreement-section">
+                    <h3><i class="fas fa-file-signature"></i> Agreement</h3>
+                    <p>This document constitutes the entire agreement between Aurix Solutions and <span id="clientNameDisplay2">[Client Name]</span>.</p>
+                    <p>By signing below, both parties agree to all terms, conditions, and services outlined.</p>
+                    
+                    <div class="signature-section">
+                        <div class="signature-box">
+                            <h4>For Aurix Solutions:</h4>
+                            <p>Signature: <input type="text" class="form-input" id="companySignature" placeholder="########"></p>
+                            <p>Printed Name: <input type="text" class="form-input" id="companyName" placeholder="########"></p>
+                            <p>Title: <input type="text" class="form-input" id="companyTitle" placeholder="########"></p>
+                            <p>Date: <input type="text" class="form-input" id="companyDate" placeholder="########"></p>
+                            <div class="signature-line"></div>
+                        </div>
+                        
+                        <div class="signature-box">
+                            <h4>For Client:</h4>
+                            <p>Signature: <input type="text" class="form-input" id="clientSignature" placeholder="########"></p>
+                            <p>Printed Name: <input type="text" class="form-input" id="clientPrintedName" placeholder="########"></p>
+                            <p>Title: <input type="text" class="form-input" id="clientTitle" placeholder="########"></p>
+                            <p>Date: <input type="text" class="form-input" id="clientDate" placeholder="########"></p>
+                            <div class="signature-line"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="download-section">
+                    <h3><i class="fas fa-file-download"></i> Download Agreement</h3>
+                    <p>Download this agreement in your preferred format for signing and record keeping:</p>
+                    <div class="download-options">
+                        <a href="#" class="download-btn" id="downloadDoc">
+                            <i class="fas fa-file-word"></i> Download .DOC
+                        </a>
+                        <a href="#" class="download-btn" id="downloadPdf">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Aurix Solutions</h3>
+                    <p>Creating exceptional digital experiences that drive business growth and success in the digital age.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">E-Commerce</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Web Hosting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                        <li><i class="fas fa-phone"></i> +94 (##) ###-####</li>
+                        <li><i class="fas fa-envelope"></i> info@aurixsolutions.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Aurix Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="downloadToast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Download started!</span>
+    </div>
+
+    <script>
+        // Set current date as default
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('documentDate').value = formattedDate;
+        
+        // Format number with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Parse number from formatted string
+        function parseNumber(str) {
+            return parseInt(str.replace(/,/g, '')) || 0;
+        }
+        
+        // Calculate development process total
+        function calculateProcessTotal() {
+            let total = 0;
+            document.querySelectorAll('.step-checkbox:checked').forEach(checkbox => {
+                const priceInput = checkbox.closest('.process-step').querySelector('.price-input');
+                total += parseNumber(priceInput.value);
+            });
+            
+            document.getElementById('processTotal').textContent = '₪' + formatNumber(total);
+            document.getElementById('devPrice').value = formatNumber(total);
+            document.getElementById('devTotal').textContent = formatNumber(total);
+            
+            // Update payment schedule
+            updatePaymentSchedule(total);
+            
+            // Update first year total
+            updateFirstYearTotal();
+        }
+        
+        // Update payment schedule based on development total
+        function updatePaymentSchedule(devTotal) {
+            const advance = Math.round(devTotal * 0.35);
+            const mid = Math.round(devTotal * 0.45);
+            const final = devTotal - advance - mid;
+            
+            document.getElementById('advancePayment').value = formatNumber(advance);
+            document.getElementById('midPayment').value = formatNumber(mid);
+            document.getElementById('finalPayment').value = formatNumber(final);
+        }
+        
+        // Update first year total
+        function updateFirstYearTotal() {
+            const hosting = parseNumber(document.querySelector('#hostingTotal').textContent);
+            const development = parseNumber(document.getElementById('devTotal').textContent);
+            const total = hosting + development;
+            
+            document.getElementById('firstYearTotal').textContent = '₪' + formatNumber(total);
+        }
+        
+        // Update annual renewal total
+        function updateAnnualRenewal() {
+            const domain = parseNumber(document.getElementById('domainRenewal').textContent);
+            const hosting = parseNumber(document.getElementById('hostingRenewal').textContent);
+            const maintenance = parseNumber(document.getElementById('maintenanceRenewal').textContent);
+            const total = domain + hosting + maintenance;
+            
+            document.getElementById('annualRenewal').textContent = '₪' + formatNumber(total);
+        }
+        
+        // Initialize calculations
+        calculateProcessTotal();
+        updateAnnualRenewal();
+        
+        // Event listeners for development process checkboxes
+        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateProcessTotal);
+        });
+        
+        // Event listeners for price inputs
+        document.querySelectorAll('.price-input').forEach(input => {
+            input.addEventListener('input', function() {
+                // Format the input value
+                const value = parseNumber(this.value);
+                if (!isNaN(value)) {
+                    this.value = formatNumber(value);
+                    
+                    // Update relevant totals
+                    if (this.id === 'devPrice') {
+                        document.getElementById('devTotal').textContent = formatNumber(value);
+                        updateFirstYearTotal();
+                        updatePaymentSchedule(value);
+                    } else if (this.closest('tr')) {
+                        const row = this.closest('tr');
+                        const cells = row.querySelectorAll('td');
+                        
+                        if (cells.length > 3) {
+                            const quantity = 1; // Assuming quantity is always 1 for now
+                            const total = value * quantity;
+                            cells[3].textContent = formatNumber(total);
+                            
+                            // Update specific totals based on row content
+                            if (row.querySelector('td').textContent.includes('Hosting')) {
+                                document.getElementById('hostingTotal').textContent = formatNumber(total);
+                                document.getElementById('hostingRenewal').textContent = formatNumber(total);
+                            } else if (row.querySelector('td').textContent.includes('Domain')) {
+                                document.getElementById('domainRenewal').textContent = formatNumber(total);
+                            } else if (row.querySelector('td').textContent.includes('Maintenance')) {
+                                document.getElementById('maintenanceRenewal').textContent = formatNumber(total);
+                            }
+                            
+                            updateFirstYearTotal();
+                            updateAnnualRenewal();
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Update client name in real-time
+        document.getElementById('clientName').addEventListener('input', function() {
+            const clientName = this.value || '[Client Name]';
+            document.getElementById('clientNameDisplay').textContent = clientName;
+            document.getElementById('clientNameDisplay2').textContent = clientName;
+        });
+        
+        // Create and download PDF file
+        function downloadPDF() {
+            const pdfBtn = document.getElementById('downloadPdf');
+            pdfBtn.classList.add('loading');
+            pdfBtn.innerHTML = '<span class="spinner"></span> Generating PDF...';
+            
+            // Use html2canvas to capture the agreement content
+            html2canvas(document.getElementById('agreementContent'), {
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                const clientName = document.getElementById('clientName').value || 'Client';
+                doc.save(`Aurix-Solutions-Agreement-${clientName.replace(/\s+/g, '-')}.pdf`);
+                
+                pdfBtn.classList.remove('loading');
+                pdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download PDF';
+                
+                showToast('PDF agreement downloaded successfully!');
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                pdfBtn.classList.remove('loading');
+                pdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download PDF';
+                showToast('Error generating PDF. Please try again.');
+            });
+        }
+
+        // Create and download DOC file
+        function downloadDOC() {
+            const docBtn = document.getElementById('downloadDoc');
+            docBtn.classList.add('loading');
+            docBtn.innerHTML = '<span class="spinner"></span> Generating DOC...';
+            
+            setTimeout(() => {
+                const clientName = document.getElementById('clientName').value || '[Client Name]';
+                const projectName = document.getElementById('projectName').value || '[Project Name]';
+                const documentDate = document.getElementById('documentDate').value;
+                
+                const docContent = `
+AURIX SOLUTIONS
+Modern Web Development & Lifetime Maintenance Agreement
+
+CLIENT INFORMATION
+Client Name: ${clientName}
+Project: ${projectName}
+Agreement Date: ${new Date(documentDate).toLocaleDateString()}
+
+SERVICES INCLUDED
+• Domain Registration & Security
+• LightSpeed Web Hosting
+• Custom Website Development
+• Lifetime Maintenance & Support
+
+INVESTMENT BREAKDOWN
+First Year Total: ${document.getElementById('firstYearTotal').textContent}
+- Domain with SSL: FREE
+- LightSpeed Hosting: ${document.getElementById('hostingTotal').textContent}
+- Website Development: ${document.getElementById('devTotal').textContent}
+- Yearly Maintenance: FREE
+
+Annual Renewal (Year 2+): ${document.getElementById('annualRenewal').textContent}
+- Domain Renewal + SSL: ${document.getElementById('domainRenewal').textContent}
+- Hosting Renewal: ${document.getElementById('hostingRenewal').textContent}
+- Annual Maintenance: ${document.getElementById('maintenanceRenewal').textContent}
+
+PAYMENT SCHEDULE
+Development Fee:
+• Advance Payment: ${document.getElementById('advancePayment').value}
+• Mid-Project Payment: ${document.getElementById('midPayment').value}
+• Final Payment: ${document.getElementById('finalPayment').value}
+
+TERMS & CONDITIONS
+Please refer to the full agreement document for complete terms and conditions.
+
+CONTACT INFORMATION
+Aurix Solutions
+Web: ########
+Tel: ########
+Email: ########
+
+This document constitutes the agreement between Aurix Solutions and ${clientName}.
+                `;
+                
+                const blob = new Blob([docContent], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Aurix-Solutions-Agreement-${clientName.replace(/\s+/g, '-')}.doc`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                docBtn.classList.remove('loading');
+                docBtn.innerHTML = '<i class="fas fa-file-word"></i> Download .DOC';
+                
+                showToast('Word document downloaded successfully!');
+            }, 1000);
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('downloadToast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Event listeners for download buttons
+        document.getElementById('downloadDoc').addEventListener('click', function(e) {
+            e.preventDefault();
+            downloadDOC();
+        });
+        
+        document.getElementById('downloadPdf').addEventListener('click', function(e) {
+            e.preventDefault();
+            downloadPDF();
+        });
+    </script>
+</body>
+</html>
